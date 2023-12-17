@@ -13,3 +13,8 @@ class CameraToWorldSpatialTransformationManager:
     def expand_origin_to_match_ray_bundle_shape(self, ray_bundle):
         return self.translation.expand(ray_bundle.shape)
 
+# camera to world
+
+# camera to camera
+
+# world to camera
