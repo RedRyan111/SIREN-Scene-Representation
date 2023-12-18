@@ -1,4 +1,5 @@
 import torch
+from transformations.transformations import CameraToWorldSpatialTransformationManager
 
 
 class RaysFromCameraBuilder:
