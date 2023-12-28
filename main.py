@@ -3,7 +3,7 @@ from data_loaders.tiny_data_loader import DataLoader
 from tqdm import tqdm
 from setup.setup_utils import set_random_seeds, load_training_config_yaml, get_tensor_device
 import matplotlib.pyplot as plt
-from transformations.transformations import CameraToWorldSpatialTransformationManager
+from transformations.transformations import SpatialTransformationManager
 
 num_iters = 10
 set_random_seeds()
@@ -19,7 +19,7 @@ for i in tqdm(range(num_iters)):
     print(f'cam to world:')
     print(target_tform_cam2world)
 
-    cam2world = CameraToWorldSpatialTransformationManager(target_tform_cam2world)
+    cam2world = SpatialTransformationManager(target_tform_cam2world)
 
 
 

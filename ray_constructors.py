@@ -1,5 +1,5 @@
 import torch
-from transformations.transformations import CameraToWorldSpatialTransformationManager
+from transformations.transformations import SpatialTransformationManager
 
 
 class RaysFromCameraBuilder:
@@ -20,9 +20,9 @@ class RaysFromCameraBuilder:
         return get_ray_directions_from_meshgrid(row_meshgrid, col_meshgrid)
 
     def ray_origins_and_directions_from_pose(self, camera_to_world_transform: torch.Tensor):
-        cam2world = CameraToWorldSpatialTransformationManager(camera_to_world_transform)
+        cam2world = SpatialTransformationManager(camera_to_world_transform)
 
-        ray_directions = cam2world.transform_ray_bundle(self.directions)
+        ray_directions = cam2world.rotate_ray_bundle(self.directions)
         ray_origins = cam2world.expand_origin_to_match_ray_bundle_shape(ray_directions)
 
         return ray_origins, ray_directions
