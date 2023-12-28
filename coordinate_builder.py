@@ -1,6 +1,6 @@
 import torch
 
-from transformations.transformations import SpatialTransformationManager
+from spatial_transformations.spatial_transformations import SpatialTransformationManager
 
 
 def camera_ray_to_plucker_ray(camera_to_world_matrix, ray_origin, ray_direction):
