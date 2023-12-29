@@ -11,6 +11,7 @@ class PositionalEncoding:
         frequency_bands = 2. ** torch.linspace(0., self.num_encoding_functions - 1,
                                                self.num_encoding_functions).to(tensor)
 
+        #check this?
         mul_frequencies = torch.einsum('ikp,l->ikpl', tensor, frequency_bands)
         sin_frequencies = torch.sin(mul_frequencies)
         cos_frequencies = torch.cos(mul_frequencies)

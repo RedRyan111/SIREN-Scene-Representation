@@ -17,11 +17,11 @@ class RaysFromCameraBuilder:
             unit_length_torch_arange(self.width, self.focal_length).to(self.device)
         )
 
+        #directions = torch.stack([torch.arctan(row_meshgrid), torch.arctan(col_meshgrid)], dim=-1)
+
         return get_ray_directions_from_meshgrid(row_meshgrid, col_meshgrid)
 
     def ray_origins_and_directions_from_pose(self, cam2world: SpatialTransformationManager):
-        #cam2world = SpatialTransformationManager(camera_to_world_transform)
-
         ray_directions = cam2world.rotate_ray_bundle(self.directions)
         ray_origins = cam2world.expand_origin_to_match_ray_bundle_shape(ray_directions)
 
