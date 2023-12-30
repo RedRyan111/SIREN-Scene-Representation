@@ -16,13 +16,13 @@ class PositionalEncoding:
         sin_frequencies = torch.sin(mul_frequencies)
         cos_frequencies = torch.cos(mul_frequencies)
 
-        print(f'sin: {sin_frequencies.shape} cos: {cos_frequencies.shape}')
+        #print(f'sin: {sin_frequencies.shape} cos: {cos_frequencies.shape}')
 
         full_frequencies = torch.cat([sin_frequencies, cos_frequencies], dim=-1)
 
         if self.include_input:
             broadcastable_tensor = tensor.reshape(*tensor.shape, 1)
-            print(f'broadcastable tensor: {broadcastable_tensor.shape}')
+            #print(f'broadcastable tensor: {broadcastable_tensor.shape}')
             full_frequencies = torch.cat([broadcastable_tensor, full_frequencies], dim=-1)
 
         full_frequencies = full_frequencies.reshape(tensor.shape[0], tensor.shape[1], self.encoding_output_dim)
