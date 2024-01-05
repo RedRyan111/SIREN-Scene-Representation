@@ -1,1 +1,1 @@
-# Neural-Light-Field
+# SIREN Scene Representation
