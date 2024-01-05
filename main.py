@@ -1,7 +1,7 @@
 import torch.nn
 from display_utils.display_utils import display_image
-from neural_light_field.models.model import NLFModel
-from neural_light_field.positional_encodings import PositionalEncoding
+from SIREN.models.model import NLFModel
+from SIREN.positional_encodings import PositionalEncoding
 from ray_constructors import RaysFromCameraBuilder
 from data_loaders.tiny_data_loader import DataLoader
 from tqdm import tqdm
@@ -43,25 +43,11 @@ for i in tqdm(range(num_iters)):
 
     ray_origin, ray_directions = ray_builder.ray_origins_and_directions_from_pose(cam2world)
 
-    # print(f'ray origins: {ray_origin.shape} ray directions: {ray_directions.shape}')
-
     encoded_ray_origin = origin_encoding.forward(ray_origin)
     encoded_ray_directions = direction_encoding.forward(ray_directions)
-    #encoded_ray_directions = generate_pixel_coordinates(device)
 
-    #print(f'encoded ray origins: {encoded_ray_origin.shape} encoded ray directions: {encoded_ray_directions.shape}')
-    model_inputs = torch.concatenate((encoded_ray_origin, encoded_ray_directions), dim=-1)#.reshape(-1, model_inp_size)
-    #model_inputs = encoded_ray_directions
+    model_inputs = torch.concatenate((encoded_ray_origin, encoded_ray_directions), dim=-1)
 
-    #print(f'min: {torch.min(model_inputs)} max: {torch.max(model_inputs)} mean: {torch.mean(model_inputs)}')
-
-    #print(f'model inputs: {model_inputs.shape}')
-
-    #print(f'model inputs: {model_inputs.reshape(-1, model_inp_size)[1337:1347]}')
-    #print(f'model target: {target_img.reshape(-1,3)[1337:1347]}')
-
-    #indecis = torch.nonzero(target_img.reshape(-1, 3))
-    #print(f'indecis: {indecis}')
     model.zero_grad()
     optim.zero_grad()
 
@@ -74,9 +60,6 @@ for i in tqdm(range(num_iters)):
 
     loss_list.append(loss.detach().cpu())
 
-    #print(f'model output: {model_output.reshape(-1, 3)[1337:1347]}')
-
-    #if (i % 3 == 0 and i < 60) or (i % 50 == 0):
     if i % 2000 == 0:
         display_image(i, loss_list, model_output.reshape((100, 100, 3)), target_img)
 
